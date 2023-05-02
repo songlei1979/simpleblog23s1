@@ -29,3 +29,12 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("post_detail", args=str(self.id))
+
+class Profile(models.Model):
+    address = models.CharField(max_length=100, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    web_page = models.URLField(blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name

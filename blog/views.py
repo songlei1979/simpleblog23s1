@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from blog.forms import CreatePostForm
-from blog.models import Post, Category
+from blog.models import Post, Category, Profile
 
 
 class home(ListView):
@@ -57,3 +57,17 @@ class CategoryDelete(DeleteView):
     template_name = "category_delete.html"
     success_url = reverse_lazy("category_list")
 
+class ProfileDetail(DetailView):
+    model = Profile
+    template_name = "profile_detail.html"
+    fields = "__all__"
+
+class ProfileCreate(CreateView):
+    model = Profile
+    template_name = "profile_create.html"
+    fields = "__all__"
+
+class ProfileUpdate(UpdateView):
+    model = Profile
+    template_name = "profile_update.html"
+    fields = ["address", "phone_number", "web_page"]
