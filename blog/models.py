@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -12,9 +13,12 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("category_detail", args=str(self.id))
+
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    body = models.TextField()
+    body = RichTextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, default=None)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, default=None)
     post_image = models.ImageField(blank=True, null=True, upload_to="images/")

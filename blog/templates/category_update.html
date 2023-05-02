@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% block title %}
-Create Post
+Update Category
 {% endblock %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
+    <form method="post">
     {% csrf_token %}
-        {{ form.media }}
     {{ form.as_p }}
-    <button class="btn btn-primary">Create</button>
+    <button class="btn btn-primary">Update</button>
     </form>
 
 {% endblock %}
