@@ -17,6 +17,8 @@ class Post(models.Model):
     body = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, default=None)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, default=None)
+    post_image = models.ImageField(blank=True, null=True, upload_to="images/")
+
 
     def __str__(self):
         return self.title
