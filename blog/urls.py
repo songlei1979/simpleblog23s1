@@ -1,7 +1,8 @@
 from django.urls import path
 
 from blog.views import home, PostDetail, PostCreate, PostUpdate, PostDelete, CategoryDetail, CategoryCreate, \
-    CategoryUpdate, CategoryDelete, CategoryList, ProfileDetail, ProfileCreate, ProfileUpdate
+    CategoryUpdate, CategoryDelete, CategoryList, ProfileDetail, ProfileCreate, ProfileUpdate, addComment, like, \
+    readExcelFile, sendEmail
 
 urlpatterns = [
     path("", home.as_view(), name="index"),
@@ -15,7 +16,11 @@ urlpatterns = [
     path("category_delete/<int:pk>", CategoryDelete.as_view(), name="category_delete"),
     path("category_list/", CategoryList.as_view(), name="category_list"),
     path("profile_detail/<int:pk>", ProfileDetail.as_view(), name="profile_detail"),
-path("profile_create/", ProfileCreate.as_view(), name="profile_create"),
-path("profile_update/<int:pk>", ProfileUpdate.as_view(), name="profile_update"),
+    path("profile_create/", ProfileCreate.as_view(), name="profile_create"),
+    path("profile_update/<int:pk>", ProfileUpdate.as_view(), name="profile_update"),
+    path("add_comment/", addComment, name="add_comment"),
+    path("likes/", like, name="likes"),
+    path("upload_file/", readExcelFile, name="upload_file"),
+    path("send_email", sendEmail, name="send_email"),
 
 ]

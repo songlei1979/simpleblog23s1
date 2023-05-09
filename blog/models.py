@@ -22,7 +22,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, default=None)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, default=None)
     post_image = models.ImageField(blank=True, null=True, upload_to="images/")
-
+    likes = models.ManyToManyField(User, related_name="user_likes")
 
     def __str__(self):
         return self.title
@@ -38,3 +38,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
+
+class Comment(models.Model):
+    comment = RichTextField()
+    post = models.ForeignKey(Post, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.user.first_name + " - " + self.post.title
+
+

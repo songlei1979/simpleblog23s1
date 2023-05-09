@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-{{ post.title }}
+    {{ post.title }}
 {% endblock %}
 
 {% block content %}
@@ -10,4 +10,36 @@
     {% endif %}
     {{ post.author.first_name }} {{ post.author.last_name }} </br>
     {{ post.category }}
+
+    <h2>Profile</h2>
+    <p>{{ post.author.profile.address }}</p>
+    <p>{{ post.author.profile.phone_number }}</p>
+    <p>{{ post.author.profile.web_page }}</p>
+
+    <p>Likes: {{ post.likes.count }}</p>
+    <form action="{% url 'likes' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        {% if user in post.likes.all %}
+            <button>dislike</button>
+        {% else %}
+            <button>like</button>
+        {% endif %}
+    </form>
+
+    {% for comment in post.comment_set.all %}
+        <div>
+            {{ comment.comment | safe }} - {{ comment.user.username }}
+        </div>
+
+
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <form action="{% url 'add_comment' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post.id }}">
+            comment: <textarea name="comment"></textarea>
+            <button>Add</button>
+        </form>
+    {% endif %}
 {% endblock %}
